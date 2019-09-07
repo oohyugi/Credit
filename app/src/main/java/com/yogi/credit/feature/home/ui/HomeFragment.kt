@@ -1,4 +1,4 @@
-package com.yogi.credit.feature.ui
+package com.yogi.credit.feature.home.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yogi.credit.R
 import com.yogi.credit.base.UiState
 import com.yogi.credit.data.model.HomeMdl
-import com.yogi.credit.feature.di.DaggerHomeComponent
-import com.yogi.credit.feature.di.HomeModule
+import com.yogi.credit.feature.home.di.DaggerHomeComponent
+import com.yogi.credit.feature.home.di.HomeModule
 import com.yogi.credit.utils.MarginItemDecoration
 import com.yogi.credit.utils.toast
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -86,15 +86,14 @@ class HomeFragment : Fragment() {
                         progress_circular?.visibility = View.VISIBLE
                     }
                 }
-                is UiState.StopLoading -> {
-                    progress_circular?.visibility = View.GONE
-                    swipe_refresh?.isRefreshing = false
-                }
+
                 is UiState.ShowError -> {
                     context?.toast(state.errorMessage)
+                    stopLoading()
                 }
                 is UiState.Success<List<HomeMdl>> -> {
                     mHomeAdapter.submitList(state.data)
+                    stopLoading()
                 }
 
             }
@@ -103,6 +102,11 @@ class HomeFragment : Fragment() {
         })
 
 
+    }
+
+    private fun stopLoading() {
+        progress_circular?.visibility = View.GONE
+        swipe_refresh?.isRefreshing = false
     }
 
     private fun initInjector() {

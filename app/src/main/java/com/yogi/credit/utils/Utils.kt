@@ -5,8 +5,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
-import android.util.DisplayMetrics
-
 
 
 /**
@@ -28,10 +26,3 @@ fun FragmentActivity.replaceFragment(fragment: Fragment, idContainer: Int, tag: 
 
 }
 
-fun Int.convertDpToPixel(context: Context?): Int {
-    return if (context != null) {
-        (this * (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
-    }else{
-        this
-    }
-}

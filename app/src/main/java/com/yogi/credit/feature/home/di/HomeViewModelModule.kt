@@ -1,8 +1,8 @@
-package com.yogi.credit.feature.di
+package com.yogi.credit.feature.home.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yogi.credit.feature.ui.HomeViewModel
+import com.yogi.credit.feature.home.ui.HomeViewModel
 import com.yogi.credit.utils.ViewModelFactory
 import com.yogi.credit.utils.ViewModelKey
 import dagger.Binds

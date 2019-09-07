@@ -1,4 +1,4 @@
-package com.yogi.credit.feature.ui
+package com.yogi.credit.feature.home.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +9,12 @@ import androidx.recyclerview.widget.*
 import com.yogi.credit.R
 import com.yogi.credit.data.model.HomeMdl
 import com.yogi.credit.utils.MarginItemDecoration
-import com.yogi.credit.utils.convertDpToPixel
 
 /**
  * Created by oohyugi on 2019-09-07.
  * github: https://github.com/oohyugi
  */
-class HomeAdapter() :
+class HomeAdapter :
     ListAdapter<HomeMdl, RecyclerView.ViewHolder>(DiffUtilsHomeAdapter()) {
 
 
@@ -23,9 +22,9 @@ class HomeAdapter() :
     private val ITEM_TYPE_ARTICLE = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
-            ITEM_TYPE_PRODUCT -> return HomeViewHolder.from(parent)
-            else -> return HomeViewHolderSection.from(parent)
+        return when (viewType) {
+            ITEM_TYPE_PRODUCT -> HomeViewHolder.from(parent)
+            else -> HomeViewHolderSection.from(parent)
         }
 
     }
@@ -38,6 +37,7 @@ class HomeAdapter() :
             is HomeViewHolderSection -> holder.bind(data)
             is HomeViewHolder -> holder.bind(data)
         }
+
 
 
     }
@@ -76,7 +76,13 @@ class HomeAdapter() :
             rvContent.apply {
                 layoutManager = mLayoutManager
                 adapter = mAdapterProduct
-                addItemDecoration(MarginItemDecoration(14,MarginItemDecoration.TYPE_GRID_LAYOUT,3))
+                addItemDecoration(
+                    MarginItemDecoration(
+                        14,
+                        MarginItemDecoration.TYPE_GRID_LAYOUT,
+                        3
+                    )
+                )
             }
 
         }

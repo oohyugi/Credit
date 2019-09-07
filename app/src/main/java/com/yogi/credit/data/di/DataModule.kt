@@ -9,6 +9,7 @@ import dagger.Provides
  * github: https://github.com/oohyugi
  */
 @Module class DataModule{
+
     @Provides @DataScope
     fun provideService(): ApiService {
         return ApiService.retrofitClient().create(ApiService::class.java)

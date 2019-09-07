@@ -1,10 +1,10 @@
 package com.yogi.credit
 
+import com.yogi.credit.data.Repository
 import com.yogi.credit.data.model.BaseMdl
 import com.yogi.credit.data.model.HomeMdl
 import com.yogi.credit.data.model.ItemsMdl
 import com.yogi.credit.data.remote.ApiService
-import com.yogi.credit.data.remote.RemoteDataSource
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -19,10 +19,10 @@ import retrofit2.Response
  * Created by oohyugi on 2019-09-06.
  * github: https://github.com/oohyugi
  */
-class DataSourceTest {
+class RepositoryTest {
 
     private var mApiService = mock(ApiService::class.java)
-    private lateinit var remoteDataSource: RemoteDataSource
+    private lateinit var repository: Repository
 
     private val homes = listOf(
         HomeMdl(
@@ -34,7 +34,7 @@ class DataSourceTest {
 
     @Before
     fun setup() {
-        remoteDataSource = RemoteDataSource(mApiService)
+        repository = Repository.RepositoryImpl(mApiService)
 
     }
 
@@ -44,8 +44,8 @@ class DataSourceTest {
             Response.success(BaseMdl(homes))
         )
 
-        val dataSource = remoteDataSource.fetchHome()
-        assertEquals(dataSource.body(), BaseMdl(homes))
+        val repo = repository.fetchHome()
+        assertEquals(repo.body(), BaseMdl(homes))
     }
 
     @Test
@@ -54,7 +54,7 @@ class DataSourceTest {
             Response.error(401, ResponseBody.create(MediaType.parse("application/json"), ""))
         )
 
-        val dataSource = remoteDataSource.fetchHome()
-        assertEquals(dataSource.body(), null)
+        val repo = repository.fetchHome()
+        assertEquals(repo.body(), null)
     }
 }

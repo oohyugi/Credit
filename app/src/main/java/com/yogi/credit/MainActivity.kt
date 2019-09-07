@@ -2,7 +2,7 @@ package com.yogi.credit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.yogi.credit.feature.ui.HomeFragment
+import com.yogi.credit.feature.home.ui.HomeFragment
 import com.yogi.credit.utils.replaceFragment
 
 class MainActivity : AppCompatActivity() {
