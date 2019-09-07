@@ -14,7 +14,7 @@ import com.yogi.credit.utils.MarginItemDecoration
  * Created by oohyugi on 2019-09-07.
  * github: https://github.com/oohyugi
  */
-class HomeAdapter :
+class HomeAdapter(val articleAdapterListener: ArticleAdapter.ArticleAdapterListener) :
     ListAdapter<HomeMdl, RecyclerView.ViewHolder>(DiffUtilsHomeAdapter()) {
 
 
@@ -34,7 +34,7 @@ class HomeAdapter :
         val data = getItem(position)
 
         when (holder) {
-            is HomeViewHolderSection -> holder.bind(data)
+            is HomeViewHolderSection -> holder.bind(data,articleAdapterListener)
             is HomeViewHolder -> holder.bind(data)
         }
 
@@ -108,13 +108,16 @@ class HomeAdapter :
 
         }
 
-        fun bind(data: HomeMdl?) {
+        fun bind(
+            data: HomeMdl?,
+            articleAdapterListener: ArticleAdapter.ArticleAdapterListener
+        ) {
 
             if (data?.sectionTitle != null) {
                 tvSection.text = data.sectionTitle
             }
 
-            mArticleAdapter = ArticleAdapter()
+            mArticleAdapter = ArticleAdapter(articleAdapterListener)
             val mLayoutManager =
                 LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
             data?.items.let {

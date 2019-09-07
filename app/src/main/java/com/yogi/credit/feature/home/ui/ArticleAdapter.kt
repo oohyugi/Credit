@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yogi.credit.R
 import com.yogi.credit.data.model.ItemsMdl
+import com.yogi.credit.utils.toast
 
 /**
  * Created by oohyugi on 2019-09-07.
  * github: https://github.com/oohyugi
  */
-class ArticleAdapter :
+class ArticleAdapter(val listener: ArticleAdapterListener) :
     ListAdapter<ItemsMdl, ArticleAdapter.ViewHolder>(DiffUtilsHomeAdapter()) {
 
 
@@ -28,7 +29,7 @@ class ArticleAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = getItem(position)
 
-        holder.bind(data)
+        holder.bind(data,listener)
 
 
     }
@@ -44,16 +45,20 @@ class ArticleAdapter :
                 val context = parent.context
                 val inflater = LayoutInflater.from(context)
                 val view = inflater.inflate(R.layout.item_article, parent, false)
-
-
                 return ViewHolder(view)
             }
 
         }
 
-        fun bind(data: ItemsMdl?) {
+        fun bind(
+            data: ItemsMdl?,
+            listener: ArticleAdapterListener
+        ) {
             Glide.with(itemView.context).load(data?.articleImage).into(ivArticle)
             tvTitle.text = data?.articleTitle
+            itemView.setOnClickListener {
+                listener.onItemClickListener(data)
+            }
 
         }
 
@@ -70,6 +75,12 @@ class ArticleAdapter :
         }
 
     }
+
+    class ArticleAdapterListener(val clickListener: (item : ItemsMdl?)-> Unit){
+        fun onItemClickListener(item: ItemsMdl?) = clickListener(item)
+    }
+
+
 
 
 }

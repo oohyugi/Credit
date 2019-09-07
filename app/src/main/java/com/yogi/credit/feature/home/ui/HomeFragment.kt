@@ -1,9 +1,11 @@
 package com.yogi.credit.feature.home.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -49,20 +51,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-    }
 
     private fun initRecyclerView() {
         val mLayoutManager = LinearLayoutManager(context)
-        mHomeAdapter = HomeAdapter()
+        mHomeAdapter = HomeAdapter(ArticleAdapter.ArticleAdapterListener { data ->
+            viewModel.onArticleClicked(data)
+        })
         rv_home?.apply {
             layoutManager = mLayoutManager
             adapter = mHomeAdapter
@@ -77,7 +71,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.state.observe(activity!!, Observer { state ->
+        viewModel.state.observe(this, Observer { state ->
 
             when (state) {
                 is UiState.ShowLoading -> {
@@ -101,7 +95,22 @@ class HomeFragment : Fragment() {
 
         })
 
+        viewModel.navigateToBrowser.observe(this, Observer {
+            it?.let {
+                gotoBrowser(it)
+            }
+//
+        })
 
+
+    }
+
+    private fun gotoBrowser(url: String) {
+
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(context, Uri.parse(url))
+        viewModel.onBrowserNavigated()
     }
 
     private fun stopLoading() {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yogi.credit.base.UiState
 import com.yogi.credit.data.model.HomeMdl
+import com.yogi.credit.data.model.ItemsMdl
 import com.yogi.credit.data.remote.ResultState
 import com.yogi.credit.feature.home.domain.HomeUseCase
 import com.yogi.credit.utils.AppDispatchers
@@ -23,6 +24,11 @@ class HomeViewModel @Inject constructor(
     val state: LiveData<UiState<List<HomeMdl>>> = _state
     private var mListHome = mutableListOf<HomeMdl>()
 
+    //navigation
+    private val _navigateToBrowser = MutableLiveData<String>()
+    val navigateToBrowser
+        get()
+        = _navigateToBrowser
 
     init {
         loadHome()
@@ -44,6 +50,7 @@ class HomeViewModel @Inject constructor(
                     request.data?.let {
 
 
+                        mListHome.clear()
                         it.data.withIndex().reversed().forEach { value ->
                             mListHome.add(value.value)
                         }
@@ -64,7 +71,17 @@ class HomeViewModel @Inject constructor(
     }
 
     fun refreshData() {
+        _state.value = null
         loadHome()
+    }
+
+
+    fun onArticleClicked(data: ItemsMdl?) {
+        _navigateToBrowser.value = data?.link
+    }
+
+    fun onBrowserNavigated(){
+        _navigateToBrowser.value = null
     }
 
 
