@@ -16,7 +16,7 @@ import com.yogi.credit.data.model.ItemsMdl
  * Created by oohyugi on 2019-09-07.
  * github: https://github.com/oohyugi
  */
-class ProductAdapter :
+class ProductAdapter(val listener: ProductAdapterListener) :
     ListAdapter<ItemsMdl, ProductAdapter.ViewHolder>(DiffUtilsHomeAdapter()) {
 
 
@@ -28,7 +28,7 @@ class ProductAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = getItem(position)
 
-        holder.bind(data)
+        holder.bind(data,listener)
 
 
     }
@@ -51,9 +51,15 @@ class ProductAdapter :
 
         }
 
-        fun bind(data: ItemsMdl?) {
+        fun bind(
+            data: ItemsMdl?,
+            listener: ProductAdapterListener
+        ) {
             Glide.with(itemView.context).load(data?.productImage).into(ivProduct)
             tvTitle.text = data?.productTitle
+            itemView.setOnClickListener {
+                listener.onItemClickListener(data)
+            }
 
         }
 
@@ -69,6 +75,10 @@ class ProductAdapter :
 
         }
 
+    }
+
+    open class ProductAdapterListener(val clickListener: (item : ItemsMdl?)-> Unit){
+        fun onItemClickListener(item: ItemsMdl?) = clickListener(item)
     }
 
 

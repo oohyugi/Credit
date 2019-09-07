@@ -54,9 +54,13 @@ class HomeFragment : Fragment() {
 
     private fun initRecyclerView() {
         val mLayoutManager = LinearLayoutManager(context)
-        mHomeAdapter = HomeAdapter(ArticleAdapter.ArticleAdapterListener { data ->
-            viewModel.onArticleClicked(data)
-        })
+        val productAdapterListener = ProductAdapter.ProductAdapterListener {
+            viewModel.onArticleClicked(it)
+        }
+        val articleAdapterListener  = ArticleAdapter.ArticleAdapterListener{
+            viewModel.onArticleClicked(it)
+        }
+        mHomeAdapter = HomeAdapter(articleAdapterListener,productAdapterListener)
         rv_home?.apply {
             layoutManager = mLayoutManager
             adapter = mHomeAdapter
