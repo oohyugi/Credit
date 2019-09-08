@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yogi.credit.R
 import com.yogi.credit.data.model.ItemsMdl
-import com.yogi.credit.utils.toast
 
 /**
  * Created by oohyugi on 2019-09-07.
