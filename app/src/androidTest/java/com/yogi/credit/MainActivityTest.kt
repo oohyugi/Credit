@@ -1,6 +1,4 @@
 package com.yogi.credit
-
-
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
@@ -11,8 +9,9 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
+import java.util.concurrent.TimeoutException
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -21,11 +20,9 @@ import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.TimeoutException
-
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class MainActivityTest {
 
     @Rule
@@ -53,7 +50,6 @@ class MainActivityTest {
         )
         relativeLayout.check(matches(isDisplayed()))
 
-
         onView(
             allOf(
                 childAtPosition(
@@ -69,11 +65,11 @@ class MainActivityTest {
                 isDisplayed()
             )
         ).waitUntilVisible(timeOut).perform(click())
-
     }
 
     private fun childAtPosition(
-        parentMatcher: Matcher<View>, position: Int
+        parentMatcher: Matcher<View>,
+        position: Int
     ): Matcher<View> {
 
         return object : TypeSafeMatcher<View>() {
@@ -84,8 +80,8 @@ class MainActivityTest {
 
             public override fun matchesSafely(view: View): Boolean {
                 val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent)
-                        && view == parent.getChildAt(position)
+                return parent is ViewGroup && parentMatcher.matches(parent) &&
+                        view == parent.getChildAt(position)
             }
         }
     }
@@ -105,5 +101,4 @@ class MainActivityTest {
 
         throw TimeoutException()
     }
-
 }

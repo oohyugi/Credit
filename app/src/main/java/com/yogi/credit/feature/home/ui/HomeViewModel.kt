@@ -10,9 +10,9 @@ import com.yogi.credit.data.model.ItemsMdl
 import com.yogi.credit.data.remote.ResultState
 import com.yogi.credit.feature.home.domain.HomeUseCase
 import com.yogi.credit.utils.AppDispatchers
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val useCase: HomeUseCase,
@@ -24,15 +24,14 @@ class HomeViewModel @Inject constructor(
     val state: LiveData<UiState<List<HomeMdl>>> = _state
     private var mListHome = mutableListOf<HomeMdl>()
 
-    //navigation
+    // navigation
     private val _navigateToBrowser = MutableLiveData<String>()
     val navigateToBrowser
-        get()
-        = _navigateToBrowser
+        get() =
+        _navigateToBrowser
 
     init {
         loadHome()
-
     }
 
     fun loadHome() {
@@ -42,31 +41,23 @@ class HomeViewModel @Inject constructor(
             val request = withContext(dispatcher.io) {
 
                 useCase.getHome()
-
-
             }
             when (request) {
                 is ResultState.Success -> {
                     request.data?.let {
-
 
                         mListHome.clear()
                         it.data.withIndex().reversed().forEach { value ->
                             mListHome.add(value.value)
                         }
 
-
                         _state.value = UiState.Success(mListHome)
                     }
                 }
                 is ResultState.Error -> {
                     _state.postValue(UiState.ShowError(request.errorMessage))
-
-
                 }
             }
-
-
         }
     }
 
@@ -75,14 +66,11 @@ class HomeViewModel @Inject constructor(
         loadHome()
     }
 
-
     fun onArticleClicked(data: ItemsMdl?) {
         _navigateToBrowser.value = data?.link
     }
 
-    fun onBrowserNavigated(){
+    fun onBrowserNavigated() {
         _navigateToBrowser.value = null
     }
-
-
 }

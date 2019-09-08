@@ -4,13 +4,13 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.yogi.credit.BuildConfig
 import com.yogi.credit.data.model.BaseMdl
 import com.yogi.credit.data.model.HomeMdl
+import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import java.util.concurrent.TimeUnit
 
 /**
  * Created by oohyugi on 2019-09-06.
@@ -20,7 +20,6 @@ interface ApiService {
 
     @GET("/home")
     suspend fun getHome(): Response<BaseMdl<List<HomeMdl>>>
-
 
     companion object {
         fun retrofitClient(url: String = BuildConfig.BASE_URL): Retrofit {
@@ -47,7 +46,5 @@ interface ApiService {
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             return interceptor
         }
-
-
     }
 }

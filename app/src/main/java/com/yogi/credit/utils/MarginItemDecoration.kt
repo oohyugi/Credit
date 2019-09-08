@@ -2,7 +2,6 @@ package com.yogi.credit.utils
 
 import android.graphics.Rect
 import android.view.View
-import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MarginItemDecoration(
     private val space: Int,
     private val type: Int,
-    private val spanCount: Int =0
+    private val spanCount: Int = 0
 ) :
     RecyclerView.ItemDecoration() {
 
@@ -38,14 +37,12 @@ class MarginItemDecoration(
                     outRect.top = space
                 }
             }
-            if (type == TYPE_LINEARLAYOUT_VERTICAL){
+            if (type == TYPE_LINEARLAYOUT_VERTICAL) {
                 val position = parent.getChildAdapterPosition(view)
-                if (position != 0){
+                if (position != 0) {
                     top = space
                 }
-
             }
         }
     }
-
 }

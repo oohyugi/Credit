@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.*
-
 import com.yogi.credit.R
 import com.yogi.credit.data.model.HomeMdl
 import com.yogi.credit.utils.MarginItemDecoration
@@ -14,9 +13,8 @@ import com.yogi.credit.utils.MarginItemDecoration
  * Created by oohyugi on 2019-09-07.
  * github: https://github.com/oohyugi
  */
-class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdapterListener,private val productAdapterListener: ProductAdapter.ProductAdapterListener) :
+class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdapterListener, private val productAdapterListener: ProductAdapter.ProductAdapterListener) :
     ListAdapter<HomeMdl, RecyclerView.ViewHolder>(DiffUtilsHomeAdapter()) {
-
 
     private val ITEM_TYPE_PRODUCT = 0
     private val ITEM_TYPE_ARTICLE = 1
@@ -26,20 +24,15 @@ class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdap
             ITEM_TYPE_PRODUCT -> HomeViewHolder.from(parent)
             else -> HomeViewHolderSection.from(parent)
         }
-
     }
-
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = getItem(position)
 
         when (holder) {
-            is HomeViewHolderSection -> holder.bind(data,articleAdapterListener)
-            is HomeViewHolder -> holder.bind(data,productAdapterListener)
+            is HomeViewHolderSection -> holder.bind(data, articleAdapterListener)
+            is HomeViewHolder -> holder.bind(data, productAdapterListener)
         }
-
-
-
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -48,7 +41,6 @@ class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdap
             else -> ITEM_TYPE_ARTICLE
         }
     }
-
 
     class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val rvContent = itemView.findViewById<RecyclerView>(R.id.rv_content)
@@ -60,10 +52,8 @@ class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdap
                 val inflater = LayoutInflater.from(context)
                 val view = inflater.inflate(R.layout.item_home, parent, false)
 
-
                 return HomeViewHolder(view)
             }
-
         }
 
         fun bind(
@@ -87,11 +77,8 @@ class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdap
                     )
                 )
             }
-
         }
-
     }
-
 
     class HomeViewHolderSection(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -105,10 +92,8 @@ class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdap
                 val inflater = LayoutInflater.from(context)
                 val view = inflater.inflate(R.layout.item_home_section, parent, false)
 
-
                 return HomeViewHolderSection(view)
             }
-
         }
 
         fun bind(
@@ -136,11 +121,7 @@ class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdap
                     )
                 )
             }
-
-
         }
-
-
     }
 
     class DiffUtilsHomeAdapter : DiffUtil.ItemCallback<HomeMdl>() {
@@ -150,10 +131,6 @@ class HomeAdapter(private val articleAdapterListener: ArticleAdapter.ArticleAdap
 
         override fun areContentsTheSame(oldItem: HomeMdl, newItem: HomeMdl): Boolean {
             return oldItem == newItem
-
         }
-
     }
-
-
 }

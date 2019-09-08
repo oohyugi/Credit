@@ -35,7 +35,6 @@ class RepositoryTest {
     @Before
     fun setup() {
         repository = Repository.RepositoryImpl(mApiService)
-
     }
 
     @Test

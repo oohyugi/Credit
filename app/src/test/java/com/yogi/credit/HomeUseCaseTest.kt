@@ -37,7 +37,6 @@ class HomeUseCaseTest {
     @Before
     fun setup() {
         homeUseCase = HomeUseCase(repository)
-
     }
 
     @Test
@@ -49,7 +48,6 @@ class HomeUseCaseTest {
                 .thenReturn(Response.success(BaseMdl(homes)))
 
             homeUseCase.getHome()
-
         }
         assertEquals(result, actual)
     }
@@ -68,7 +66,7 @@ class HomeUseCaseTest {
             homeUseCase.getHome()
         }
 
-        //probably has different error message, so you can check by type of java class
+        // probably has different error message, so you can check by type of java class
         assert(result.javaClass === actual.javaClass)
     }
 }

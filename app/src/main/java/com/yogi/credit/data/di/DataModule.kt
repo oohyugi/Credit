@@ -8,7 +8,7 @@ import dagger.Provides
  * Created by oohyugi on 2019-09-06.
  * github: https://github.com/oohyugi
  */
-@Module class DataModule{
+@Module class DataModule {
 
     @Provides @DataScope
     fun provideService(): ApiService {

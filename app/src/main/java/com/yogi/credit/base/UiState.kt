@@ -5,7 +5,7 @@ package com.yogi.credit.base
  * github: https://github.com/oohyugi
  */
 sealed class UiState<out R> {
-    object ShowLoading:UiState<Nothing>()
-    data class ShowError(val errorMessage:String?):UiState<Nothing>()
-    data class Success<T>(val data :T):UiState<T>()
+    object ShowLoading : UiState<Nothing>()
+    data class ShowError(val errorMessage: String?) : UiState<Nothing>()
+    data class Success<T>(val data: T) : UiState<T>()
 }

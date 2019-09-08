@@ -30,6 +30,5 @@ class HomeModule {
         return HomeUseCase(repository)
     }
     @HomeScope @Provides
-    fun provideAppDispatcher(): AppDispatchers = AppDispatchers(Dispatchers.Main,Dispatchers.IO)
-
+    fun provideAppDispatcher(): AppDispatchers = AppDispatchers(Dispatchers.Main, Dispatchers.IO)
 }

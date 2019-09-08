@@ -19,20 +19,15 @@ import com.yogi.credit.data.model.ItemsMdl
 class ArticleAdapter(val listener: ArticleAdapterListener) :
     ListAdapter<ItemsMdl, ArticleAdapter.ViewHolder>(DiffUtilsHomeAdapter()) {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = getItem(position)
 
-        holder.bind(data,listener)
-
-
+        holder.bind(data, listener)
     }
-
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -46,7 +41,6 @@ class ArticleAdapter(val listener: ArticleAdapterListener) :
                 val view = inflater.inflate(R.layout.item_article, parent, false)
                 return ViewHolder(view)
             }
-
         }
 
         fun bind(
@@ -58,9 +52,7 @@ class ArticleAdapter(val listener: ArticleAdapterListener) :
             itemView.setOnClickListener {
                 listener.onItemClickListener(data)
             }
-
         }
-
     }
 
     class DiffUtilsHomeAdapter : DiffUtil.ItemCallback<ItemsMdl>() {
@@ -70,16 +62,10 @@ class ArticleAdapter(val listener: ArticleAdapterListener) :
 
         override fun areContentsTheSame(oldItem: ItemsMdl, newItem: ItemsMdl): Boolean {
             return oldItem == newItem
-
         }
-
     }
 
-    class ArticleAdapterListener(val clickListener: (item : ItemsMdl?)-> Unit){
+    class ArticleAdapterListener(val clickListener: (item: ItemsMdl?) -> Unit) {
         fun onItemClickListener(item: ItemsMdl?) = clickListener(item)
     }
-
-
-
-
 }

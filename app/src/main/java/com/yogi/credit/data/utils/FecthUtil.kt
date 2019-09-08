@@ -16,6 +16,5 @@ suspend fun <T : Any> fetchState(call: suspend () -> ResultState<T>): ResultStat
         ResultState.Error(e.message)
     } catch (e: Throwable) {
         ResultState.Error(e.message)
-
     }
 }

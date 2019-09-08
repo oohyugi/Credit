@@ -56,9 +56,7 @@ class HomeViewModelTest {
         Dispatchers.setMain(appDispatchers.main)
         viewModel = HomeViewModel(useCase, appDispatchers)
         viewModel.state.observeForever(result)
-
     }
-
 
     @Test
     fun responseHomeData() = runBlocking {
@@ -66,19 +64,14 @@ class HomeViewModelTest {
         `when`(useCase.getHome()).thenReturn(returnValue)
         viewModel.loadHome()
 
-
-        //then
+        // then
 //        verify(result).onChanged(UiState.ShowLoading)
         verify(result).onChanged(UiState.Success(homesData.data))
         clearInvocations(useCase, result)
-
     }
-
 
     @After
     fun tearDown() {
         Dispatchers.resetMain()
     }
-
-
 }

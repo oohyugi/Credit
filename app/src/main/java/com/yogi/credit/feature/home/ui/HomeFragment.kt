@@ -18,8 +18,8 @@ import com.yogi.credit.feature.home.di.DaggerHomeComponent
 import com.yogi.credit.feature.home.di.HomeModule
 import com.yogi.credit.utils.MarginItemDecoration
 import com.yogi.credit.utils.toast
-import kotlinx.android.synthetic.main.home_fragment.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment() {
 
@@ -33,7 +33,8 @@ class HomeFragment : Fragment() {
     private lateinit var mHomeAdapter: HomeAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.home_fragment, container, false)
@@ -51,16 +52,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun initRecyclerView() {
         val mLayoutManager = LinearLayoutManager(context)
         val productAdapterListener = ProductAdapter.ProductAdapterListener {
             viewModel.onArticleClicked(it)
         }
-        val articleAdapterListener  = ArticleAdapter.ArticleAdapterListener{
+        val articleAdapterListener = ArticleAdapter.ArticleAdapterListener {
             viewModel.onArticleClicked(it)
         }
-        mHomeAdapter = HomeAdapter(articleAdapterListener,productAdapterListener)
+        mHomeAdapter = HomeAdapter(articleAdapterListener, productAdapterListener)
         rv_home?.apply {
             layoutManager = mLayoutManager
             adapter = mHomeAdapter
@@ -71,7 +71,6 @@ class HomeFragment : Fragment() {
                 )
             )
         }
-
     }
 
     private fun initObserver() {
@@ -93,10 +92,7 @@ class HomeFragment : Fragment() {
                     mHomeAdapter.submitList(state.data)
                     stopLoading()
                 }
-
             }
-
-
         })
 
         viewModel.navigateToBrowser.observe(this, Observer {
@@ -105,8 +101,6 @@ class HomeFragment : Fragment() {
             }
 //
         })
-
-
     }
 
     private fun gotoBrowser(url: String) {
@@ -124,7 +118,5 @@ class HomeFragment : Fragment() {
 
     private fun initInjector() {
         DaggerHomeComponent.builder().homeModule(HomeModule()).build().inject(this)
-
     }
-
 }
